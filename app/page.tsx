@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PriceChart from "./PriceChart";import PortfolioSim from "./PortfolioSim";
 import { headers } from "next/headers";
 
@@ -257,7 +258,7 @@ export default async function Dashboard() {
                 <tr key={s.netuid} style={{ borderBottom: "1px solid #1e1e2e" }}>
                   <td style={{ padding: "12px 16px", color: "#555566", fontSize: "13px" }}>{i + 1}</td>
                   <td style={{ padding: "12px 16px" }}>
-                    <span style={{ color: "#e8e8f0", fontWeight: 600 }}>{SUBNET_NAMES[s.netuid] || `Subnet ${s.netuid}`}</span>
+                    <a href={`/subnet/${s.netuid}`} style={{ color: "#e8e8f0", fontWeight: 600, textDecoration: "none" }}>{SUBNET_NAMES[s.netuid] || `Subnet ${s.netuid}`}</a>
                     <span style={{ color: "#555566", marginLeft: "8px", fontSize: "12px" }}>SN{s.netuid}</span>
                   </td>
                   <td style={{ padding: "12px 16px", color: "#00d4aa", textAlign: "right", fontWeight: 600 }}>
