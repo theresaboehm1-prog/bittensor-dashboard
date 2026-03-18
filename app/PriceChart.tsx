@@ -115,7 +115,7 @@ export default function PriceChart() {
                 fontSize: "13px",
                 fontFamily: "inherit",
               }}
-              formatter={(value: number) => [`$${value.toFixed(2)}`, "TAO"]}
+              formatter={(value: any) => [`$${Number(value).toFixed(2)}`, "TAO"]}
             />
             <Area
               type="monotone"
