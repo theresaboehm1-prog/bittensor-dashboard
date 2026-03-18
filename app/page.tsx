@@ -1,3 +1,4 @@
+import PriceChart from "./PriceChart";
 import { headers } from "next/headers";
 
 const SUBNET_NAMES: Record<number, string> = {
@@ -217,7 +218,7 @@ export default async function Dashboard() {
         </div>
       </div>
 
-      {/* Emission Chart */}
+      <PriceChart />{/* Emission Chart */}
       <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "20px", marginBottom: "32px" }}>
         <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 16px 0" }}>Emission Distribution — Top 15 Subnets</h2>
         {top15.map((s: any) => (
