@@ -79,11 +79,22 @@ export default function AIAnalyst({ subnetData, taoPrice, networkStats }: { subn
             <span style={{ color: "#00d4aa", fontSize: "13px", fontWeight: 600 }}>Claude Analysis</span>
             <span style={{ color: "#555566", fontSize: "11px" }}>Based on live data</span>
           </div>
-          {analysis.split("\n\n").map(function(paragraph, i) {
+          {analysis.split("\n").filter(function(p) { return p.trim() !== ""; }).map(function(paragraph, i) {
+            var isBold = paragraph.startsWith("**");
+            var cleanText = paragraph.replace(/\*\*/g, "");
+            var colonIndex = cleanText.indexOf(":");
+            if (colonIndex > 0 && colonIndex < 40) {
+              var title = cleanText.substring(0, colonIndex);
+              var body = cleanText.substring(colonIndex + 1).trim();
+              return (
+                <div key={i} style={{ background: "#12121a", borderRadius: "6px", padding: "14px 16px", marginBottom: "10px", borderLeft: "3px solid #00d4aa" }}>
+                  <div style={{ color: "#00d4aa", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", marginBottom: "6px" }}>{title}</div>
+                  <div style={{ color: "#e8e8f0", fontSize: "13px", lineHeight: 1.7 }}>{body}</div>
+                </div>
+              );
+            }
             return (
-              <p key={i} style={{ color: "#e8e8f0", fontSize: "13px", lineHeight: 1.7, marginBottom: "12px" }}>
-                {paragraph}
-              </p>
+              <p key={i} style={{ color: "#e8e8f0", fontSize: "13px", lineHeight: 1.7, marginBottom: "12px" }}>{cleanText}</p>
             );
           })}
         </div>
