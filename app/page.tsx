@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PriceChart from "./PriceChart";import PortfolioSim from "./PortfolioSim";
 import { headers } from "next/headers";
+import ResearchHub from "./ResearchHub";
 
 const SUBNET_NAMES: Record<number, string> = {
   0: "Root Network",
@@ -234,7 +235,7 @@ export default async function Dashboard() {
           />
         ))}
       </div>
-
+<ResearchHub />
       {/* Subnet Table */}
       <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", overflow: "hidden" }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid #1e1e2e", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
