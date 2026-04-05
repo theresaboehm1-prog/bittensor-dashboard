@@ -7,6 +7,7 @@ import SubnetCompare from "./SubnetCompare";
 import NetworkHealth from "./NetworkHealth";
 import StakingCalc from "./StakingCalc";
 import WhaleTracker from "./WhaleTracker";
+import BittensorChat from "./BittensorChat";
 
 
 const SUBNET_NAMES: Record<number, string> = {
@@ -285,6 +286,7 @@ export default async function Dashboard() {
         </div>
       </div>
 
+            <BittensorChat subnetData={top15.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: (parseFloat(s.emission) / 1e7).toFixed(2), miners: s.active_miners || 0, validators: s.active_validators || 0 }; })} taoPrice={taoPrice} networkStats={{ subnets: subnetCount, staked: stakePercent + "%", totalMiners: totalMiners, totalValidators: totalValidators }} />
       {/* Footer */}
       <div style={{ textAlign: "center", padding: "32px 0 16px", color: "#555566", fontSize: "11px" }}>
         Bittensor Subnet Intelligence Dashboard • Data from Taostats API • Built with Next.js
