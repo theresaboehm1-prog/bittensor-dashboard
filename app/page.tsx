@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PriceChart from "./PriceChart";import PortfolioSim from "./PortfolioSim";
 import { headers } from "next/headers";
+import AIAnalyst from "./AIAnalyst";
 import ResearchHub from "./ResearchHub";
 
 const SUBNET_NAMES: Record<number, string> = {
@@ -219,7 +220,7 @@ export default async function Dashboard() {
           <div style={{ color: "#e8e8f0", fontSize: "16px", fontWeight: 600, marginTop: "4px" }}>#{stats?.block_number ? Number(stats.block_number).toLocaleString() : "—"}</div>
         </div>
       </div>
-
+<AIAnalyst subnetData={top15.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: (parseFloat(s.emission) / 1e7).toFixed(2), miners: s.active_miners || 0, validators: s.active_validators || 0 }; })} taoPrice={taoPrice} networkStats={{ subnets: subnetCount, staked: stakePercent + "%", totalMiners: totalMiners, totalValidators: totalValidators }} />
       <PortfolioSim taoPrice={taoPrice} />
       <PriceChart />
       {/* Emission Chart */}
