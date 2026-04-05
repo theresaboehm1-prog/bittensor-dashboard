@@ -5,6 +5,8 @@ import AIAnalyst from "./AIAnalyst";
 import ResearchHub from "./ResearchHub";
 import SubnetCompare from "./SubnetCompare";
 import NetworkHealth from "./NetworkHealth";
+import StakingCalc from "./StakingCalc";
+
 
 const SUBNET_NAMES: Record<number, string> = {
   0: "Root Network",
@@ -239,6 +241,7 @@ export default async function Dashboard() {
           />
         ))}
       </div>
+            <StakingCalc taoPrice={taoPrice} />
 <SubnetCompare subnets={top30.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: parseFloat(s.emission) / 1e7, miners: s.active_miners || 0, validators: s.active_validators || 0, neurons: s.active_keys || 0, regAllowed: s.registration_allowed || false }; })} />
 <ResearchHub />
       {/* Subnet Table */}
