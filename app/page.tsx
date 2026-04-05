@@ -8,6 +8,8 @@ import NetworkHealth from "./NetworkHealth";
 import StakingCalc from "./StakingCalc";
 import WhaleTracker from "./WhaleTracker";
 import BittensorChat from "./BittensorChat";
+import SwapSimulator from "./SwapSimulator";
+
 
 
 const SUBNET_NAMES: Record<number, string> = {
@@ -243,6 +245,7 @@ export default async function Dashboard() {
           />
         ))}
       </div>
+        <SwapSimulator subnets={top15.map(function(s: any) { var em = parseFloat(s.emission) / 1e7; var estimatedTaoReserve = em * 50000; var estimatedAlphaReserve = estimatedTaoReserve / (em * 0.1 + 0.01); return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: em, taoReserve: estimatedTaoReserve, alphaReserve: estimatedAlphaReserve, currentPrice: estimatedTaoReserve / estimatedAlphaReserve }; })} />
             <StakingCalc taoPrice={taoPrice} />
 <WhaleTracker taoPrice={taoPrice} />
 <SubnetCompare subnets={top30.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: parseFloat(s.emission) / 1e7, miners: s.active_miners || 0, validators: s.active_validators || 0, neurons: s.active_keys || 0, regAllowed: s.registration_allowed || false }; })} />
