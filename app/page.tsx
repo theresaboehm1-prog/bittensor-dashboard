@@ -9,8 +9,7 @@ import StakingCalc from "./StakingCalc";
 import WhaleTracker from "./WhaleTracker";
 import BittensorChat from "./BittensorChat";
 import SwapSimulator from "./SwapSimulator";
-
-
+import MoneyFlow from "./MoneyFlow";
 
 const SUBNET_NAMES: Record<number, string> = {
   0: "Root Network",
@@ -228,6 +227,8 @@ export default async function Dashboard() {
           <div style={{ color: "#e8e8f0", fontSize: "16px", fontWeight: 600, marginTop: "4px" }}>#{stats?.block_number ? Number(stats.block_number).toLocaleString() : "—"}</div>
         </div>
       </div>
+
+      <MoneyFlow taoPrice={taoPrice} />
             <NetworkHealth subnets={sortedSubnets.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: parseFloat(s.emission) / 1e7, miners: s.active_miners || 0, validators: s.active_validators || 0, regAllowed: s.registration_allowed || false }; })} />
 <AIAnalyst subnetData={top15.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: (parseFloat(s.emission) / 1e7).toFixed(2), miners: s.active_miners || 0, validators: s.active_validators || 0 }; })} taoPrice={taoPrice} networkStats={{ subnets: subnetCount, staked: stakePercent + "%", totalMiners: totalMiners, totalValidators: totalValidators }} />
       <PortfolioSim taoPrice={taoPrice} />
