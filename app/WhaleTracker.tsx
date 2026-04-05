@@ -15,7 +15,7 @@ export default function WhaleTracker({ taoPrice }: { taoPrice: number }) {
   var [loading, setLoading] = useState(true);
 
   useEffect(function() {
-    fetch("/api/taostats/dtao/stake_balance/latest/v1?per_page=10&netuid=0")
+    fetch("/api/taostats/dtao/stake_balance/latest/v1?per_page=25&netuid=0")
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var entries = (data.data || []).map(function(w: any, i: number) {
