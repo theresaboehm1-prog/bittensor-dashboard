@@ -11,6 +11,9 @@ import BittensorChat from "./BittensorChat";
 import SwapSimulator from "./SwapSimulator";
 import MoneyFlow from "./MoneyFlow";
 import RiskScore from "./RiskScore";
+import ValidatorFees from "./ValidatorFees";
+import LargeMovements from "./LargeMovements";
+import SubnetSocial from "./SubnetSocial";
 
 const SUBNET_NAMES: Record<number, string> = {
   0: "Root Network",
@@ -250,6 +253,7 @@ export default async function Dashboard() {
       </div>
         <SwapSimulator subnets={top15.map(function(s: any) { var em = parseFloat(s.emission) / 1e7; var estimatedTaoReserve = em * 50000; var estimatedAlphaReserve = estimatedTaoReserve / (em * 0.1 + 0.01); return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: em, taoReserve: estimatedTaoReserve, alphaReserve: estimatedAlphaReserve, currentPrice: estimatedTaoReserve / estimatedAlphaReserve }; })} />
             <StakingCalc taoPrice={taoPrice} />
+<ValidatorFees taoPrice={taoPrice} />
 <WhaleTracker taoPrice={taoPrice} />
 <SubnetCompare subnets={top30.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: parseFloat(s.emission) / 1e7, miners: s.active_miners || 0, validators: s.active_validators || 0, neurons: s.active_keys || 0, regAllowed: s.registration_allowed || false }; })} />
 <ResearchHub />
@@ -293,6 +297,8 @@ export default async function Dashboard() {
       </div>
 
             <BittensorChat subnetData={top15.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: (parseFloat(s.emission) / 1e7).toFixed(2), miners: s.active_miners || 0, validators: s.active_validators || 0 }; })} taoPrice={taoPrice} networkStats={{ subnets: subnetCount, staked: stakePercent + "%", totalMiners: totalMiners, totalValidators: totalValidators }} />
+      <LargeMovements taoPrice={taoPrice} />
+      <SubnetSocial />
       {/* Footer */}
       <div style={{ textAlign: "center", padding: "32px 0 16px", color: "#555566", fontSize: "11px" }}>
         Bittensor Subnet Intelligence Dashboard • Data from Taostats API • Built with Next.js
