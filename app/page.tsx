@@ -270,6 +270,7 @@ export default async function Dashboard() {
                 <th style={{ padding: "10px 16px", textAlign: "left", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>#</th>
                 <th style={{ padding: "10px 16px", textAlign: "left", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>Subnet</th>
                 <th style={{ padding: "10px 16px", textAlign: "right", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>Emission</th>
+                <th style={{ padding: "10px 16px", textAlign: "right", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>Daily USD</th>
                 <th style={{ padding: "10px 16px", textAlign: "right", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>Miners</th>
                 <th style={{ padding: "10px 16px", textAlign: "right", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>Validators</th>
                 <th style={{ padding: "10px 16px", textAlign: "right", color: "#555566", fontSize: "11px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: 600 }}>Neurons</th>
@@ -285,6 +286,9 @@ export default async function Dashboard() {
                   </td>
                   <td style={{ padding: "12px 16px", color: "#00d4aa", textAlign: "right", fontWeight: 600 }}>
                     {(parseFloat(s.emission) / 1e7).toFixed(2)}%
+                  </td>
+                  <td style={{ padding: "12px 16px", color: "#8888a0", textAlign: "right", fontSize: "12px" }}>
+                    ${((parseFloat(s.emission) / 1e7 / 100) * 3600 * taoPrice).toFixed(0)}/d
                   </td>
                   <td style={{ padding: "12px 16px", color: "#8888a0", textAlign: "right" }}>{s.active_miners || 0}</td>
                   <td style={{ padding: "12px 16px", color: "#8888a0", textAlign: "right" }}>{s.active_validators || 0}</td>
