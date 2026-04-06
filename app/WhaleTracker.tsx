@@ -28,6 +28,9 @@ export default function WhaleTracker({ taoPrice }: { taoPrice: number }) {
           };
         });
         setWhales(entries);
+                if (typeof window !== "undefined") {
+          (window as any).__whaleData = entries.map(function(w: any) { return { name: w.hotkey_name, balance: w.balance_tao >= 1000 ? (w.balance_tao / 1000).toFixed(0) + "K" : w.balance_tao.toFixed(0), usd: (w.balance_tao * taoPrice / 1000).toFixed(0) + "K" }; });
+        }
         setLoading(false);
       })
       .catch(function() {

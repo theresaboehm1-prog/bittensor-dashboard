@@ -79,6 +79,7 @@ function calculateRisk(s: SubnetRisk): RiskBreakdown {
   else if (overall >= 20) { label = "High Risk"; color = "#ff8844"; }
   else { label = "Critical"; color = "#ff4466"; }
 
+
   return {
     overall: overall,
     minerDiversity: minerScore,
@@ -137,7 +138,9 @@ export default function RiskScore({ subnets }: { subnets: SubnetRisk[] }) {
   var moderate = scored.filter(function(s) { return s.risk.overall >= 60 && s.risk.overall < 80; }).length;
   var elevated = scored.filter(function(s) { return s.risk.overall >= 40 && s.risk.overall < 60; }).length;
   var highRisk = scored.filter(function(s) { return s.risk.overall < 40; }).length;
-
+  if (typeof window !== "undefined") {
+    (window as any).__riskScores = scored.map(function(item) { return { netuid: item.subnet.netuid, name: item.subnet.name, score: item.risk.overall, label: item.risk.label, minerScore: item.risk.minerDiversity, emissionScore: item.risk.emissionStrength, valScore: item.risk.validatorCoverage, flowScore: item.risk.flowMomentum }; });
+  }
   return (
     <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "20px", marginBottom: "32px" }}>
       <div style={{ marginBottom: "16px" }}>
