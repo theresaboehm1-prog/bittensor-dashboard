@@ -4,7 +4,6 @@ import { headers } from "next/headers";
 import AIAnalyst from "./AIAnalyst";
 import ResearchHub from "./ResearchHub";
 import SubnetCompare from "./SubnetCompare";
-import NetworkHealth from "./NetworkHealth";
 import StakingCalc from "./StakingCalc";
 import WhaleTracker from "./WhaleTracker";
 import BittensorChat from "./BittensorChat";
@@ -234,7 +233,6 @@ export default async function Dashboard() {
 
 <RiskScore subnets={sortedSubnets.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: parseFloat(s.emission) / 1e7, miners: s.active_miners || 0, validators: s.active_validators || 0, neurons: s.active_keys || 0, maxNeurons: s.max_neurons || 256, taoFlow: Number(s.tao_flow || "0") / 1e9, regAllowed: s.registration_allowed || false }; })} />
       <MoneyFlow taoPrice={taoPrice} />
-            <NetworkHealth subnets={sortedSubnets.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: parseFloat(s.emission) / 1e7, miners: s.active_miners || 0, validators: s.active_validators || 0, regAllowed: s.registration_allowed || false }; })} />
 <AIAnalyst subnetData={top15.map(function(s: any) { return { netuid: s.netuid, name: SUBNET_NAMES[s.netuid] || "Subnet " + s.netuid, emission: (parseFloat(s.emission) / 1e7).toFixed(2), miners: s.active_miners || 0, validators: s.active_validators || 0 }; })} taoPrice={taoPrice} networkStats={{ subnets: subnetCount, staked: stakePercent + "%", totalMiners: totalMiners, totalValidators: totalValidators }} />
       <PortfolioSim taoPrice={taoPrice} />
       <PriceChart />
