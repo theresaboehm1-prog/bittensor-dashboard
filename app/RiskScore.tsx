@@ -142,7 +142,7 @@ export default function RiskScore({ subnets }: { subnets: SubnetRisk[] }) {
     <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "20px", marginBottom: "32px" }}>
       <div style={{ marginBottom: "16px" }}>
         <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 4px 0" }}>Subnet Risk Score</h2>
-        <p style={{ color: "#555566", fontSize: "11px" }}>Composite risk rating combining miner diversity, validator coverage, emission strength, TAO flow momentum, and capacity utilization</p>
+        <p style={{ color: "#555566", fontSize: "11px" }}>Investment risk rating: should you stake here? Miner Diversity (25%), Emission Strength (25%), Validator Coverage (20%), Flow Momentum (20%), Capacity Utilization (10%). Higher = safer.</p>
       </div>
 
       <div style={{ display: "flex", gap: "12px", marginBottom: "20px", flexWrap: "wrap" }}>

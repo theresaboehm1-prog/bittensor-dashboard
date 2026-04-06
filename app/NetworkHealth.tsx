@@ -30,7 +30,7 @@ export default function NetworkHealth({ subnets }: { subnets: SubnetHealth[] }) 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
         <div>
           <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 4px 0" }}>Network Health Monitor</h2>
-          <p style={{ color: "#555566", fontSize: "11px" }}>Real-time subnet status based on miner activity, validator count, and emission share</p>
+          <p style={{ color: "#555566", fontSize: "11px" }}>Operational status: is this subnet functioning? Based on miner activity (0-2pts), validator count (0-2pts), emission share (0-2pts), and registration status (0-1pt). Score 6+ = Healthy.</p>
         </div>
         <div style={{ display: "flex", gap: "16px" }}>
           <div style={{ textAlign: "center" }}>
