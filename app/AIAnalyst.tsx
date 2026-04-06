@@ -21,7 +21,7 @@ export default function AIAnalyst({ subnetData, taoPrice, networkStats }: { subn
     fetch("/api/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ subnetData: subnetData, taoPrice: taoPrice, networkStats: networkStats }),
+body: JSON.stringify({ subnetData: subnetData, taoPrice: taoPrice, networkStats: networkStats, riskScores: (window as any).__riskScores || [], flowData: (window as any).__flowData || [], whaleData: (window as any).__whaleData || [] }),
     })
       .then(function(res) { return res.json(); })
       .then(function(data) {
@@ -79,12 +79,13 @@ export default function AIAnalyst({ subnetData, taoPrice, networkStats }: { subn
             <span style={{ color: "#00d4aa", fontSize: "13px", fontWeight: 600 }}>Claude Analysis</span>
             <span style={{ color: "#555566", fontSize: "11px" }}>Based on live data</span>
           </div>
-          {analysis.split("\n").filter(function(p) { return p.trim() !== ""; }).map(function(paragraph, i) {
-            var isBold = paragraph.startsWith("**");
-            var cleanText = paragraph.replace(/\*\*/g, "");
+          {analysis.replace(/\【[^\]]*\】/g, "").replace(/\[[0-9†‡]*\]/g, "").replace(/^#+.*$/gm, "").replace(/^\s*---\s*$/gm, "").split(/\n\n+/).filter(function(p) { return p.trim() !== ""; }).map(function(paragraph, i) {
+            var cleanText = paragraph.replace(/\*\*/g, "").replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+            if (!cleanText || cleanText.length < 10) return null;
+            if (cleanText.match(/^(BITTENSOR|Market Overview|VC INVESTMENT)/i)) return null;
             var colonIndex = cleanText.indexOf(":");
-            if (colonIndex > 0 && colonIndex < 40) {
-              var title = cleanText.substring(0, colonIndex);
+            if (colonIndex > 0 && colonIndex < 40 && cleanText.substring(0, colonIndex) === cleanText.substring(0, colonIndex).toUpperCase()) {
+              var title = cleanText.substring(0, colonIndex).trim();
               var body = cleanText.substring(colonIndex + 1).trim();
               return (
                 <div key={i} style={{ background: "#12121a", borderRadius: "6px", padding: "14px 16px", marginBottom: "10px", borderLeft: "3px solid #00d4aa" }}>
@@ -94,7 +95,9 @@ export default function AIAnalyst({ subnetData, taoPrice, networkStats }: { subn
               );
             }
             return (
-              <p key={i} style={{ color: "#e8e8f0", fontSize: "13px", lineHeight: 1.7, marginBottom: "12px" }}>{cleanText}</p>
+              <div key={i} style={{ background: "#12121a", borderRadius: "6px", padding: "14px 16px", marginBottom: "10px", borderLeft: "3px solid #4488ff" }}>
+                <div style={{ color: "#e8e8f0", fontSize: "13px", lineHeight: 1.7 }}>{cleanText}</div>
+              </div>
             );
           })}
         </div>

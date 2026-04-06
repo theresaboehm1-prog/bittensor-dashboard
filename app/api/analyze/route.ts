@@ -58,10 +58,11 @@ Focus on actionable intelligence — what should a TAO holder DO based on this d
         "x-api-key": process.env.ANTHROPIC_API_KEY || "",
         "anthropic-version": "2023-06-01",
       },
-      body: JSON.stringify({
+body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
-        max_tokens: 1500,
-        messages: [{ role: "user", content: prompt }],
+        max_tokens: 2000,
+        tools: [{ type: "web_search_20250305", name: "web_search" }],
+        messages: [{ role: "user", content: prompt + "\n\nBEFORE writing your analysis, search the web for the latest Bittensor news, TAO price movements, subnet announcements, and any recent partnerships or catalysts from the past 7 days. Incorporate what you find into your analysis alongside the live data above. This makes your briefing truly real-time." }],
       }),
     });
 
@@ -71,8 +72,17 @@ Focus on actionable intelligence — what should a TAO holder DO based on this d
       return NextResponse.json({ error: "AI analysis failed" }, { status: 500 });
     }
 
-    const data = await response.json();
-    const text = data.content[0]?.text || "No analysis available.";
+const data = await response.json();
+const text = data.content
+      .filter(function(item: any) { return item.type === "text"; })
+      .map(function(item: any) { return item.text; })
+      .join(" ")
+      .replace(/\【[^\]]*\】/g, "")
+      .replace(/\[[0-9†‡]+\]/g, "")
+      .replace(/\s*,\s*while\s*\n/g, ", while ")
+      .replace(/\s*\n\s*,/g, ",")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim() || "No analysis available.";
     return NextResponse.json({ analysis: text });
   } catch (error) {
     console.error("AI analyst error:", error);
