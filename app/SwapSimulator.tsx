@@ -73,7 +73,7 @@ export default function SwapSimulator({ subnets }: { subnets: SubnetPool[] }) {
     <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "20px", marginBottom: "32px" }}>
       <div style={{ marginBottom: "16px" }}>
         <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 4px 0" }}>Alpha Token Swap Simulator</h2>
-        <p style={{ color: "#555566", fontSize: "11px" }}>Simulates constant-product AMM (x * y = k) used by Dynamic TAO for subnet alpha tokens</p>
+        <p style={{ color: "#555566", fontSize: "11px" }}>Simulates constant-product AMM (x * y = k) used by Dynamic TAO for subnet alpha tokens. <a href="/swap-methodology" style={{ color: "#ffaa00", textDecoration: "none", fontWeight: 600 }}>How it works →</a></p>
       </div>
 
       <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "20px" }}>
