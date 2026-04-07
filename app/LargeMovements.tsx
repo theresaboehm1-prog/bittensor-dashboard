@@ -65,7 +65,7 @@ export default function LargeMovements({ taoPrice }: { taoPrice: number }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
         <div>
           <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 4px 0" }}>Large Holder Concentration Monitor</h2>
-          <p style={{ color: "#555566", fontSize: "11px" }}>Track whale concentration risk — entities with positions above your threshold</p>
+          <p style={{ color: "#555566", fontSize: "11px" }}>Track whale concentration risk — entities with positions above your threshold. <a href="/concentration-methodology" style={{ color: "#ff4466", textDecoration: "none", fontWeight: 600 }}>How it works →</a></p>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <label style={{ color: "#8888a0", fontSize: "11px" }}>THRESHOLD:</label>
