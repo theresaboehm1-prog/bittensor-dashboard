@@ -46,9 +46,10 @@ export default function PortfolioSim({ taoPrice }: { taoPrice: number }) {
   return (
     <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "20px", marginBottom: "32px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
-        <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: 0 }}>
-          Portfolio Simulator
-        </h2>
+        <div>
+          <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: 0 }}>Portfolio Simulator</h2>
+          <p style={{ color: "#555566", fontSize: "11px", margin: "4px 0 0 0" }}>Model your TAO allocation across multiple subnets. <a href="/portfolio-methodology" style={{ color: "#aa66ff", textDecoration: "none", fontWeight: 600 }}>How it works →</a></p>
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <label style={{ color: "#8888a0", fontSize: "12px" }}>TOTAL TAO:</label>
           <input

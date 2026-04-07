@@ -140,7 +140,86 @@ export default function AIMethodologyPage() {
           Instead, the browser calls MY server at <code style={{ background: "#0a0a14", padding: "2px 6px", borderRadius: "3px", color: "#00d4aa" }}>/api/analyze</code>, my server attaches the API key and forwards the request to Anthropic. The key never reaches the browser. This is the same pattern production apps like Stripe and Vercel use.
         </p>
       </div>
+      <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "24px", marginBottom: "24px" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#ff6b9d", margin: "0 0 12px 0" }}>Setting Up the Anthropic API</h2>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
+          The AI analyst doesn't come for free. Using Claude through the API required real setup steps and actual money out of pocket — here's exactly what I did:
+        </p>
 
+        <div style={{ background: "#1a1a25", borderRadius: "6px", padding: "16px", marginBottom: "12px", borderLeft: "3px solid #00d4aa" }}>
+          <div style={{ color: "#00d4aa", fontSize: "14px", fontWeight: 700, marginBottom: "6px" }}>1. Created an Anthropic Developer Account</div>
+          <p style={{ fontSize: "13px", color: "#8888a0", margin: 0, lineHeight: 1.6 }}>
+            Signed up at console.anthropic.com to get access to Claude's API. This is separate from the consumer Claude.ai account — developer access unlocks programmatic use through API endpoints.
+          </p>
+        </div>
+
+        <div style={{ background: "#1a1a25", borderRadius: "6px", padding: "16px", marginBottom: "12px", borderLeft: "3px solid #4488ff" }}>
+          <div style={{ color: "#4488ff", fontSize: "14px", fontWeight: 700, marginBottom: "6px" }}>2. Generated an API Key</div>
+          <p style={{ fontSize: "13px", color: "#8888a0", margin: 0, lineHeight: 1.6 }}>
+            Created a secret API key that authenticates every request to Anthropic's servers. This key starts with <code style={{ background: "#0a0a14", padding: "2px 6px", borderRadius: "3px", color: "#00d4aa" }}>sk-ant-api03-...</code> and is treated like a password — if it leaks, someone can drain your credits.
+          </p>
+        </div>
+
+        <div style={{ background: "#1a1a25", borderRadius: "6px", padding: "16px", marginBottom: "12px", borderLeft: "3px solid #ffaa00" }}>
+          <div style={{ color: "#ffaa00", fontSize: "14px", fontWeight: 700, marginBottom: "6px" }}>3. Purchased $5 in API Credits</div>
+          <p style={{ fontSize: "13px", color: "#8888a0", margin: 0, lineHeight: 1.6 }}>
+            The Anthropic API is pay-as-you-go — no free tier for production use. I bought $5 worth of credits with a credit card. This is enough for roughly 150 full analyses, more than enough for the semester and the live demo.
+          </p>
+        </div>
+
+        <div style={{ background: "#1a1a25", borderRadius: "6px", padding: "16px", marginBottom: "12px", borderLeft: "3px solid #ff6b9d" }}>
+          <div style={{ color: "#ff6b9d", fontSize: "14px", fontWeight: 700, marginBottom: "6px" }}>4. Stored the Key as an Environment Variable</div>
+          <p style={{ fontSize: "13px", color: "#8888a0", margin: 0, lineHeight: 1.6 }}>
+            Added the key to a <code style={{ background: "#0a0a14", padding: "2px 6px", borderRadius: "3px", color: "#00d4aa" }}>.env.local</code> file locally and to Vercel's environment variable settings for production. Environment variables are never committed to GitHub and never exposed to the browser — they only exist on the server where the API call happens.
+          </p>
+        </div>
+
+        <div style={{ background: "#1a1a25", borderRadius: "6px", padding: "16px", marginBottom: "12px", borderLeft: "3px solid #aa66ff" }}>
+          <div style={{ color: "#aa66ff", fontSize: "14px", fontWeight: 700, marginBottom: "6px" }}>5. Wrote a Server-Side API Route</div>
+          <p style={{ fontSize: "13px", color: "#8888a0", margin: 0, lineHeight: 1.6 }}>
+            Created <code style={{ background: "#0a0a14", padding: "2px 6px", borderRadius: "3px", color: "#00d4aa" }}>app/api/analyze/route.ts</code> — a Next.js serverless function that receives requests from my browser, attaches the API key, forwards the request to Anthropic, and returns the response. The key never leaves my server.
+          </p>
+        </div>
+      </div>
+
+      <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "24px", marginBottom: "24px" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#4488ff", margin: "0 0 12px 0" }}>Adding Live Web Search</h2>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
+          The first version of my AI analyst only saw dashboard data. It was good, but it couldn't reference news. If Grayscale just filed for a TAO ETF yesterday, Claude wouldn't know about it because that event happened after its training cutoff.
+        </p>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
+          Then I discovered Anthropic had just released a web search tool for the API. By adding a single parameter to my API call, Claude gains the ability to search the internet BEFORE writing its response. I added it to the request body like this:
+        </p>
+        <div style={{ background: "#0a0a14", borderRadius: "6px", padding: "16px", fontFamily: "Consolas, monospace", fontSize: "12px", lineHeight: 1.7, color: "#00d4aa", marginBottom: "12px", overflowX: "auto" }}>
+          <div>tools: [&#123;</div>
+          <div>{"  "}type: "web_search_20250305",</div>
+          <div>{"  "}name: "web_search"</div>
+          <div>&#125;],</div>
+        </div>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
+          I also updated my prompt to explicitly instruct Claude: <em style={{ color: "#00d4aa" }}>"BEFORE writing your analysis, search the web for the latest Bittensor news, TAO price movements, subnet announcements, and any recent partnerships or catalysts from the past 7 days. Incorporate what you find into your analysis alongside the live data above."</em>
+        </p>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: 0 }}>
+          The result: every analysis now combines live dashboard data, hand-written fundamental context, AND real-time web news. No other Bittensor tool does this — and the whole upgrade cost me nothing beyond what I was already paying per analysis.
+        </p>
+      </div>
+
+      <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "24px", marginBottom: "24px" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#ffaa00", margin: "0 0 12px 0" }}>Debugging the Output</h2>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
+          Adding web search introduced a new problem I didn't expect: the response format changed. Without web search, Claude returns one clean text block. WITH web search, the response contains multiple content blocks — search results, citations, and the final text all mixed together. When I first deployed it, the output had weird mid-sentence line breaks and citation markers like <code style={{ background: "#0a0a14", padding: "2px 6px", borderRadius: "3px", color: "#ff4466" }}>[1]</code> and <code style={{ background: "#0a0a14", padding: "2px 6px", borderRadius: "3px", color: "#ff4466" }}>【2】</code> inserted randomly.
+        </p>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
+          I had to write a cleanup function that strips these artifacts before displaying the analysis. The fix involved:
+        </p>
+        <div style={{ background: "#1a1a25", borderRadius: "6px", padding: "12px", fontSize: "13px", color: "#8888a0", lineHeight: 1.7 }}>
+          • Filtering for only text blocks in the response<br />
+          • Joining them with spaces instead of newlines<br />
+          • Stripping Unicode and ASCII citation brackets with regex<br />
+          • Removing orphaned commas and "while" fragments<br />
+          • Normalizing paragraph spacing
+        </div>
+      </div>
       <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "24px", marginBottom: "24px" }}>
         <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#00d4aa", margin: "0 0 12px 0" }}>Cost Economics</h2>
         <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#e8e8f0", margin: "0 0 12px 0" }}>
