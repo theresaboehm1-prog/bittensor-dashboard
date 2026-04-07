@@ -18,7 +18,7 @@ export default function StakingCalc({ taoPrice }: { taoPrice: number }) {
   return (
     <div style={{ background: "#12121a", border: "1px solid #1e1e2e", borderRadius: "8px", padding: "20px", marginBottom: "32px" }}>
       <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 4px 0" }}>TAO Staking Calculator</h2>
-      <p style={{ color: "#555566", fontSize: "11px", marginBottom: "20px" }}>Estimate your staking returns based on current network parameters</p>
+      <p style={{ color: "#555566", fontSize: "11px", marginBottom: "20px" }}>Estimate your staking returns based on current network parameters. <a href="/staking-methodology" style={{ color: "#4488ff", textDecoration: "none", fontWeight: 600 }}>How it works →</a></p>
 
       <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", marginBottom: "24px" }}>
         <div style={{ flex: "1 1 200px" }}>

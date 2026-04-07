@@ -72,6 +72,9 @@ export default function MoneyFlow({ taoPrice }: { taoPrice: number }) {
         })
         .filter(function(s: SubnetFlow) { return s.emission > 0; });
       setSubnets(entries);
+      if (typeof window !== "undefined") {
+        (window as any).__flowData = entries.map(function(s: any) { return { netuid: s.netuid, name: s.name, flow: s.flow24h }; });
+      }
       setLoading(false);
     }).catch(function() { setLoading(false); });
   }, []);
@@ -118,7 +121,7 @@ export default function MoneyFlow({ taoPrice }: { taoPrice: number }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
         <div>
           <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: "0 0 4px 0" }}>Subnet Money Flow Radar</h2>
-          <p style={{ color: "#555566", fontSize: "11px" }}>Net TAO flowing in/out of subnet pools — the #1 signal for investor sentiment</p>
+          <p style={{ color: "#555566", fontSize: "11px" }}>Net TAO flowing in/out of subnet pools — the #1 signal for investor sentiment. <a href="/flow-methodology" style={{ color: "#00d4aa", textDecoration: "none", fontWeight: 600 }}>How it works →</a></p>
         </div>
         <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
           <button onClick={function() { setTimeframe("1h"); }} style={{ background: timeframe === "1h" ? "#00d4aa" : "#1e1e2e", color: timeframe === "1h" ? "#0a0a0f" : "#8888a0", border: "none", borderRadius: "4px", padding: "4px 12px", fontSize: "11px", fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>1 Hour</button>
