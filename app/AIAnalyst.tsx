@@ -45,7 +45,7 @@ body: JSON.stringify({ subnetData: subnetData, taoPrice: taoPrice, networkStats:
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
         <div>
           <h2 style={{ fontSize: "16px", fontWeight: 600, color: "#e8e8f0", margin: 0 }}>AI Network Analyst</h2>
-          <p style={{ color: "#555566", fontSize: "11px", marginTop: "4px" }}>Powered by Claude — analyzes live Bittensor data</p>
+          <p style={{ color: "#555566", fontSize: "11px", marginTop: "4px" }}>Powered by Claude — analyzes live Bittensor data. <a href="/ai-methodology" style={{ color: "#00d4aa", textDecoration: "none", fontWeight: 600 }}>How it works →</a></p>
         </div>
         <button
           onClick={runAnalysis}
